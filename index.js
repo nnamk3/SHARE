@@ -15,7 +15,7 @@ app.get('/total', (req, res) => {
     id: link.id,
     target: link.target,
   }));
-  res.json(JSON.parse(JSON.stringify(data || [], null, 2)));
+  res.json(JSON.parse(JSON.stringify(data || [], null, 6)));
 });
 app.get('/', (res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
