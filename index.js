@@ -28,14 +28,14 @@ app.post('/api/submit', async (req, res) => {
     interval,
   } = req.body;
   if (!cookie || !url || !amount || !interval) return res.status(400).json({
-    error: 'Missing state, url, amount, or interval'
+    error: 'Thiếu fb appstate, url, số lượng cần share hoặc khoảng thời gian'
   });
   try {
     const cookies = await convertCookie(cookie);
     if (!cookies) {
       return res.status(400).json({
         status: 500,
-        error: 'Invalid cookies'
+        error: 'lỗi appstate'
       });
     };
     await share(cookies, url, amount, interval)
