@@ -15,7 +15,7 @@ app.get('/total', (req, res) => {
     id: link.id,
     target: link.target,
   }));
-  res.json(JSON.parse(JSON.stringify(data || [], null, 6)));
+  res.json(JSON.parse(JSON.stringify(data || [], null, 10)));
 });
 app.get('/', (res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -54,7 +54,7 @@ async function share(cookies, url, amount, interval) {
   const id = await getPostID(url);
   const accessToken = await getAccessToken(cookies);
   if (!id) {
-    throw new Error("Unable to get link id: invalid URL, it's either a private post or visible to friends only");
+    throw new Error("Không thể lấy id liên kết: URL không hợp lệ, đó là một bài đăng riêng tư hoặc chỉ hiển thị cho bạn bè");
   }
   const postId = total.has(id) ? id + 1 : id;
   total.set(postId, {
@@ -148,7 +148,7 @@ async function convertCookie(cookie) {
       const cookies = JSON.parse(cookie);
       const sbCookie = cookies.find(cookies => cookies.key === "sb");
       if (!sbCookie) {
-        reject("Detect invalid appstate please provide a valid appstate");
+        reject("Phát hiện trạng fbappstate, vui lòng cung cấp đúng appstate");
       }
       const sbValue = sbCookie.value;
       const data = `sb=${sbValue}; ${cookies.slice(1).map(cookies => `${cookies.key}=${cookies.value}`).join('; ')}`;
